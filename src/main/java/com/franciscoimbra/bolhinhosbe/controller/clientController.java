@@ -16,7 +16,7 @@ public class clientController {
     ClientService clientService;
 
     @RequestMapping(value = "/client", method = RequestMethod.POST)
-    public ResponseEntity<Object> createProduct(@RequestBody Client client) {
+    public ResponseEntity<Object> createClient(@RequestBody Client client) {
         if (clientService.checkIfClientExistsByPhone(client).isPresent()) {
             return new ResponseEntity<>("the user is already registered", HttpStatus.FOUND);
         }
