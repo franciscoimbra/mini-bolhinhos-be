@@ -30,7 +30,7 @@ public class clientController {
     }
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET)
-    public Client updateProduct(@PathVariable("id") Long id) {
+    public Client updateClient(@PathVariable("id") Long id) {
         if(clientService.getClientByID(id).isPresent()){
             return clientService.getClientByID(id).get();
         }

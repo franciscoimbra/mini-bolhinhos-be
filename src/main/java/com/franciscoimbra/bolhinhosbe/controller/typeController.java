@@ -24,7 +24,7 @@ public class typeController {
     }
 
     @RequestMapping(value = "/type", method = RequestMethod.POST)
-    public ResponseEntity<Object> createProduct(@RequestBody Type type) {
+    public ResponseEntity<Object> createType(@RequestBody Type type) {
         typeService.createType(type);
         return new ResponseEntity<>("type is created successfully", HttpStatus.CREATED);
     }
