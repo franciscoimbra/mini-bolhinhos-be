@@ -17,8 +17,9 @@ public class Registo {
     private String email;
     @NotNull
     private String pwd;
-    private String role;
-    @JsonIgnore
-    @OneToMany(mappedBy="registo",fetch= FetchType.EAGER)
-    private Set<Authority> authorities;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+
 }

@@ -8,7 +8,10 @@ import java.util.Optional;
 public interface RegistoService {
 
     public Registo createRegisto(Registo registo);
-    public Optional<Registo> checkIfResgistoExistsByEmail(Registo registo);
+    public Optional<Registo> checkIfResgistoExistsByEmailWithObj(Registo registo);
+
+    public Optional<Registo> checkIfResgistoExistsByEmailWithString(String mail);
+
 
 
 }
