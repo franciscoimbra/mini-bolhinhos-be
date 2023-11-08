@@ -1,7 +1,7 @@
 package com.franciscoimbra.bolhinhosbe.filters;
 
-import com.example.springboot3jwtauthentication.services.JwtService;
-import com.example.springboot3jwtauthentication.services.UserService;
+import com.franciscoimbra.bolhinhosbe.service.JwtService;
+import com.franciscoimbra.bolhinhosbe.service.RegistoService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
   
   private final JwtService jwtService;
-  private final UserService userService;
+  private final RegistoService registoService;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request,
@@ -40,10 +40,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           return;
       }
       jwt = authHeader.substring(7);
-      log.debug("JWT - {}", jwt.toString());
+      log.debug("JWT - {}", jwt);
       userEmail = jwtService.extractUserName(jwt);
       if (StringUtils.isNotEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null) {
-          UserDetails userDetails = userService.userDetailsService().loadUserByUsername(userEmail);
+          UserDetails userDetails = registoService.userDetailsService().loadUserByUsername(userEmail);
           if (jwtService.isTokenValid(jwt, userDetails)) {
             log.debug("User - {}", userDetails);
             SecurityContext context = SecurityContextHolder.createEmptyContext();

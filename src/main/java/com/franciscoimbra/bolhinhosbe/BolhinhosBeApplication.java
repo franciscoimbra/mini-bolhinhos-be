@@ -15,4 +15,7 @@ public class BolhinhosBeApplication {
 
 
 // https://github.com/wazooinc/spring-boot-3-jwt-authentication/blob/main/src/main/java/com/example/springboot3jwtauthentication/services/JwtService.java
+
+	//angular
+	//https://github.com/bezkoder/angular-16-jwt-auth.git
 }

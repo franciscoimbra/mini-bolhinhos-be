@@ -1,9 +1,10 @@
 package com.franciscoimbra.bolhinhosbe.config;
 
-import com.example.springboot3jwtauthentication.models.Role;
-import com.example.springboot3jwtauthentication.models.User;
-import com.example.springboot3jwtauthentication.repositories.UserRepository;
-import com.example.springboot3jwtauthentication.services.UserService;
+
+import com.franciscoimbra.bolhinhosbe.entities.Registo;
+import com.franciscoimbra.bolhinhosbe.entities.Role;
+import com.franciscoimbra.bolhinhosbe.repository.RegistoRepository;
+import com.franciscoimbra.bolhinhosbe.service.RegistoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -15,25 +16,23 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SeedDataConfig implements CommandLineRunner {
 
-    private final UserRepository userRepository;
+    private final RegistoRepository registoRepository;
     private final PasswordEncoder passwordEncoder;
-    private final UserService userService;
+    private final RegistoService registoService;
 
     @Override
     public void run(String... args) throws Exception {
         
-      if (userRepository.count() == 0) {
+      if (registoRepository.count() == 0) {
 
-        User admin = User
+          Registo admin = Registo
                       .builder()
-                      .firstName("admin")
-                      .lastName("admin")
                       .email("admin@admin.com")
-                      .password(passwordEncoder.encode("password"))
+                      .pwd(passwordEncoder.encode("password"))
                       .role(Role.ROLE_ADMIN)
                       .build();
 
-        userService.save(admin);
+        registoService.createRegisto(admin);
         log.debug("created ADMIN user - {}", admin);
       }
     }

@@ -21,22 +21,4 @@ import java.util.Optional;
 public class RegisterController {
     @Autowired
     RegistoService registoService;
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<Object> createUser(@RequestBody Registo registo) {
-        if (registoService.checkIfResgistoExistsByEmailWithObj(registo).isPresent()) {
-            return new ResponseEntity<>("the user is already registered", HttpStatus.FOUND);
-        }
-        registoService.createRegisto(registo);
-        return new ResponseEntity<>("Client is created successfully", HttpStatus.CREATED);
-    }
-    @RequestMapping("/user")
-    public Registo getUserDetailsAfterLogin(Authentication authentication) {
-        Optional<Registo> registo = registoService.checkIfResgistoExistsByEmailWithString(authentication.getName());
-        return registo.orElse(null);
-    }
-
-
-
-
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+@RequestMapping("/api")
 @RestController
 public class CollaboratorController {
 
@@ -19,7 +19,7 @@ public class CollaboratorController {
     CollaboratorService collaboratorService;
 
     @RequestMapping(value = "/collaborators", method = RequestMethod.GET)
-    public List<Collaborator> getAllTypes() {
+    public List<Collaborator> getAllCollaborators() {
         return collaboratorService.getAllCollaborator();
     }
 }
