@@ -1,7 +1,7 @@
 package com.franciscoimbra.bolhinhosbe.filters;
 
 import com.franciscoimbra.bolhinhosbe.service.JwtService;
-import com.franciscoimbra.bolhinhosbe.service.RegistoService;
+import com.franciscoimbra.bolhinhosbe.service.interfaces.RegisterService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,37 +23,37 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-  
-  private final JwtService jwtService;
-  private final RegistoService registoService;
 
-  @Override
-  protected void doFilterInternal(HttpServletRequest request,
-        HttpServletResponse response, 
-        FilterChain filterChain)
+    private final JwtService jwtService;
+    private final RegisterService registerService;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
         throws ServletException, IOException {
-      final String authHeader = request.getHeader("Authorization");
-      final String jwt;
-      final String userEmail;
-      if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, "Bearer ")) {
-          filterChain.doFilter(request, response);
-          return;
-      }
-      jwt = authHeader.substring(7);
-      log.debug("JWT - {}", jwt);
-      userEmail = jwtService.extractUserName(jwt);
-      if (StringUtils.isNotEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null) {
-          UserDetails userDetails = registoService.userDetailsService().loadUserByUsername(userEmail);
-          if (jwtService.isTokenValid(jwt, userDetails)) {
-            log.debug("User - {}", userDetails);
-            SecurityContext context = SecurityContextHolder.createEmptyContext();
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+        final String authHeader = request.getHeader("Authorization");
+        final String jwt;
+        final String userEmail;
+        if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, "Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        jwt = authHeader.substring(7);
+        log.debug("JWT - {}", jwt);
+        userEmail = jwtService.extractUserName(jwt);
+        if (StringUtils.isNotEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = registerService.userDetailsService().loadUserByUsername(userEmail);
+            if (jwtService.isTokenValid(jwt, userDetails)) {
+                log.debug("User - {}", userDetails);
+                SecurityContext context = SecurityContextHolder.createEmptyContext();
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
-            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            context.setAuthentication(authToken);
-            SecurityContextHolder.setContext(context);
-          }
-      }
-      filterChain.doFilter(request, response);
-  }
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                context.setAuthentication(authToken);
+                SecurityContextHolder.setContext(context);
+            }
+        }
+        filterChain.doFilter(request, response);
+    }
 }

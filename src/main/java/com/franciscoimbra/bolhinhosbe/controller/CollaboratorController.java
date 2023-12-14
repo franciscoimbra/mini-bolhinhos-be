@@ -1,10 +1,7 @@
 package com.franciscoimbra.bolhinhosbe.controller;
 
 import com.franciscoimbra.bolhinhosbe.entities.Collaborator;
-import com.franciscoimbra.bolhinhosbe.entities.Type;
-import com.franciscoimbra.bolhinhosbe.service.ClientService;
-import com.franciscoimbra.bolhinhosbe.service.CollaboratorService;
-import com.franciscoimbra.bolhinhosbe.service.OrderService;
+import com.franciscoimbra.bolhinhosbe.service.interfaces.CollaboratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

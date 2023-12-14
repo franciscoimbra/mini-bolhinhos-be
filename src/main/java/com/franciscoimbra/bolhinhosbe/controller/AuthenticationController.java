@@ -2,8 +2,9 @@ package com.franciscoimbra.bolhinhosbe.controller;
 
 
 import com.franciscoimbra.bolhinhosbe.entities.JwtAuthenticationResponse;
-import com.franciscoimbra.bolhinhosbe.entities.Registo;
-import com.franciscoimbra.bolhinhosbe.service.AuthenticationService;
+import com.franciscoimbra.bolhinhosbe.entities.Register;
+import com.franciscoimbra.bolhinhosbe.service.interfaces.AuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,13 +19,12 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/signup")
-    public JwtAuthenticationResponse signup(@RequestBody Registo request) {
-        System.out.println(request);
+    public JwtAuthenticationResponse signup(@Valid @RequestBody Register request) {
         return authenticationService.signup(request);
     }
 
     @PostMapping("/signin")
-    public JwtAuthenticationResponse signin(@RequestBody Registo request) {
+    public JwtAuthenticationResponse signin(@Valid @RequestBody Register request) {
         return authenticationService.signin(request);
     }
 }

@@ -1,7 +1,7 @@
 package com.franciscoimbra.bolhinhosbe.controller;
 
 import com.franciscoimbra.bolhinhosbe.entities.Client;
-import com.franciscoimbra.bolhinhosbe.service.ClientService;
+import com.franciscoimbra.bolhinhosbe.service.interfaces.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequestMapping("/api")
 @RestController
-public class clientController {
+public class ClientController {
 
     @Autowired
     ClientService clientService;

@@ -1,11 +1,17 @@
 package com.franciscoimbra.bolhinhosbe.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name="authority")
+@Table(name = "authority")
 public class Authority {
 
     @Id
@@ -15,6 +21,6 @@ public class Authority {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "registo_id")
-    private Registo registo;
+    @JoinColumn(name = "register_id")
+    private Register register;
 }
