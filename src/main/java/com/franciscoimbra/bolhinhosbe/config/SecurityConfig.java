@@ -1,11 +1,10 @@
 package com.franciscoimbra.bolhinhosbe.config;
 
 import com.franciscoimbra.bolhinhosbe.filters.JwtAuthenticationFilter;
-import com.franciscoimbra.bolhinhosbe.service.RegistoService;
+import com.franciscoimbra.bolhinhosbe.service.interfaces.RegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -25,36 +24,36 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  private final JwtAuthenticationFilter jwtAuthenticationFilter;
-  private final RegistoService registoService;
-  private final PasswordEncoder passwordEncoder;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final RegisterService registerService;
+    private final PasswordEncoder passwordEncoder;
 
-  @Bean
-  public AuthenticationProvider authenticationProvider() {
-      DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-      authProvider.setUserDetailsService(registoService.userDetailsService());
-      authProvider.setPasswordEncoder(passwordEncoder);
-      return authProvider;
-  }
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(registerService.userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder);
+        return authProvider;
+    }
 
-  @Bean
-  public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-      return config.getAuthenticationManager();
-  }
-  
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-    .csrf(AbstractHttpConfigurer::disable)
-    .sessionManagement(session -> session
-      .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    )
-    .authorizeHttpRequests(authorize -> authorize
-            // .requestMatchers("/collaborators").authenticated()
-            .anyRequest().permitAll()
-    )
-    .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
 
-    return http.build();
-  }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .authorizeHttpRequests(authorize -> authorize
+                // .requestMatchers("/collaborators").authenticated()
+                .anyRequest().permitAll()
+            )
+            .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
 }

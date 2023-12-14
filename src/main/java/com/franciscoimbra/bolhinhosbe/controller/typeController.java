@@ -1,8 +1,7 @@
 package com.franciscoimbra.bolhinhosbe.controller;
 
-import com.franciscoimbra.bolhinhosbe.entities.Client;
 import com.franciscoimbra.bolhinhosbe.entities.Type;
-import com.franciscoimbra.bolhinhosbe.service.TypeService;
+import com.franciscoimbra.bolhinhosbe.service.interfaces.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

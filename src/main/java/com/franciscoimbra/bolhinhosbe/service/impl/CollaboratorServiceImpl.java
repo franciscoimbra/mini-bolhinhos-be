@@ -1,9 +1,8 @@
-package com.franciscoimbra.bolhinhosbe.service.serviceImpl;
+package com.franciscoimbra.bolhinhosbe.service.impl;
 
 import com.franciscoimbra.bolhinhosbe.entities.Collaborator;
 import com.franciscoimbra.bolhinhosbe.repository.CollaboratorRepository;
-import com.franciscoimbra.bolhinhosbe.service.CollaboratorService;
-import com.franciscoimbra.bolhinhosbe.service.OrderService;
+import com.franciscoimbra.bolhinhosbe.service.interfaces.CollaboratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

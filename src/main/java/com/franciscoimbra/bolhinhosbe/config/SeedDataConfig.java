@@ -1,10 +1,10 @@
 package com.franciscoimbra.bolhinhosbe.config;
 
 
-import com.franciscoimbra.bolhinhosbe.entities.Registo;
+import com.franciscoimbra.bolhinhosbe.entities.Register;
 import com.franciscoimbra.bolhinhosbe.entities.Role;
-import com.franciscoimbra.bolhinhosbe.repository.RegistoRepository;
-import com.franciscoimbra.bolhinhosbe.service.RegistoService;
+import com.franciscoimbra.bolhinhosbe.repository.RegisterRepository;
+import com.franciscoimbra.bolhinhosbe.service.interfaces.RegisterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -16,25 +16,25 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SeedDataConfig implements CommandLineRunner {
 
-    private final RegistoRepository registoRepository;
+    private final RegisterRepository registerRepository;
     private final PasswordEncoder passwordEncoder;
-    private final RegistoService registoService;
+    private final RegisterService registerService;
 
     @Override
     public void run(String... args) throws Exception {
-        
-      if (registoRepository.count() == 0) {
 
-          Registo admin = Registo
-                      .builder()
-                      .email("admin@admin.com")
-                      .pwd(passwordEncoder.encode("password"))
-                      .role(Role.ROLE_ADMIN)
-                      .build();
+        if (registerRepository.count() == 0) {
 
-        registoService.createRegisto(admin);
-        log.debug("created ADMIN user - {}", admin);
-      }
+            Register admin = Register
+                .builder()
+                .email("admin@admin.com")
+                .pwd(passwordEncoder.encode("password"))
+                .role(Role.ROLE_ADMIN)
+                .build();
+
+            registerService.create(admin);
+            log.debug("created ADMIN user - {}", admin);
+        }
     }
 
 }

@@ -1,7 +1,7 @@
 package com.franciscoimbra.bolhinhosbe.controller;
 
 import com.franciscoimbra.bolhinhosbe.entities.Order;
-import com.franciscoimbra.bolhinhosbe.service.OrderService;
+import com.franciscoimbra.bolhinhosbe.service.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

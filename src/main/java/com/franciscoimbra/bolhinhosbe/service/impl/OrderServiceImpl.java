@@ -1,15 +1,12 @@
-package com.franciscoimbra.bolhinhosbe.service.serviceImpl;
+package com.franciscoimbra.bolhinhosbe.service.impl;
 
-import com.franciscoimbra.bolhinhosbe.entities.Client;
 import com.franciscoimbra.bolhinhosbe.entities.Order;
-import com.franciscoimbra.bolhinhosbe.repository.ClientRepository;
 import com.franciscoimbra.bolhinhosbe.repository.OrderRepository;
-import com.franciscoimbra.bolhinhosbe.service.OrderService;
+import com.franciscoimbra.bolhinhosbe.service.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -31,10 +28,6 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getAllOrderFromDay(LocalDateTime date) {
         return orderRepository.findAllByPickUpDate(date);
     }
-
-
-
-
 
 
 }
